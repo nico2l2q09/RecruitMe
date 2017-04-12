@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'signup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'recruitme',
-        'USER': 'postgres',
-        'PASSWORD': 'Why$thed0g09',
+        'USER': 'kaykaybug',
+        #'PASSWORD': '',
     }
 }
 
