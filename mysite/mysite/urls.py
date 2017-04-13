@@ -17,6 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+	url(r'^', include('signup.urls')),
 	url(r'^signup/', include('signup.urls')),
-	url(r'^admin/', admin.site.urls),
+	url(r'^signupCoach/', include('signup.urls')),
+	url(r'^profile/', include('signup.urls')),
+	url(r'^playerProfile/', include('signup.urls')),
+	url(r'^admin/', admin.site.urls)
 ]
