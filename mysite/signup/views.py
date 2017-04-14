@@ -14,12 +14,12 @@ def gethtml():
 	r = f.read()
 	return r
 
-def signup(request):
+def signupPlayer(request):
 	html = getSignuphtml()
 	return HttpResponse(html)
 
 def getSignuphtml():
-	f =  open("signup/signup.html", "r")
+	f =  open("signup/signupPlayer.html", "r")
 	r = f.read()
 	return r
 

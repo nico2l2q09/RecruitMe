@@ -18,7 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^', include('signup.urls')),
-	url(r'^signup/', include('signup.urls')),
+	url(r'^signupPlayer/', include('signup.urls')),
 	url(r'^signupCoach/', include('signup.urls')),
 	url(r'^profile/', include('signup.urls')),
 	url(r'^playerProfile/', include('signup.urls')),
