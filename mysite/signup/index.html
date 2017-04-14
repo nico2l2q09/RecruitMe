@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <body>
-   <div class="container">    
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-            <div class="panel panel-info" >
+<style>
+background-image {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+</style>
+   <body style="background-image: url('http://www.goprincetontigers.com/images/2014/9/17/SEHWHKLBAZCQIAJ.20140917054738.jpg');">
+   <div class="container" >    
+        <div id="loginbox" style="margin-top:200px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info"  style="max-width:400px;margin-left:auto; margin-right:auto;">
                     <div class="panel-heading">
-                        <div class="panel-title">Sign In</div>
+                        <h1> RecruitMe </h1>
                         <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
                     </div>     
 
@@ -52,11 +59,11 @@
                                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                                             Don't have an account? 
                                         <br>
-                                        <a href="http://localhost:8000/signupPlayer">
+                                        <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
                                             Sign Up As Player
                                         </a>
                                         <br>
-                                         <a href="http://localhost:8000/signupCoach">
+                                         <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
                                             Sign Up As Coach
                                         </a>
                                         </div>
