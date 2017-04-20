@@ -25,6 +25,6 @@ class Coach(models.Model):
 	first_name = models.CharField(max_length=25)
 	last_name = models.CharField(max_length=25)
 	school = models.CharField(max_length=25)
-	
-	
+	email = models.CharField(max_length=25)
+	phone = models.CharField(max_length=25)
 
