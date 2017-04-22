@@ -132,6 +132,16 @@ def playerProfile(request):
 	f = open("signup/player.html", "r")
 	r = f.read()
 	return HttpResponse(r)
+
+def exploreCoach(request):
+	a_list = Coach.objects.all()
+	context = {'name': 'Mikaela', 'user_list': a_list}
+	return render(request, 'exploreCoach.html', context)
+
+def explorePlayer(request):
+	a_list = Player.objects.all()
+	context = {'player_list': a_list}
+	return render(request, 'explorePlayer.html', context)
 #def index(request):
 	#template = loader.get_template('signup/index.html')
 

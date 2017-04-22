@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+    #profile { 
+
+     max-height: 125px;
+     max-width: 125px;
+     height: 100%;
+     width: 100%; 
+     margin-left: auto;
+     margin-right: auto;
+     display: block;
+     overflow: hidden; }
+    
+  </style>
+
+</head>
+<body>
+
+
+ {% block content %} 
+
+<div class="container-fluid text-center">    
+  <h3>Explore</h3><br>
+    <div class="row">  
+
+  {% for player in player_list %}  
+
+    <div class="col-sm-4"> 
+      
+      <aside class="panel-body">
+  <header>    
+    <!-- here’s the avatar -->
+    <a href="#"> <!-- http://profile of person -->
+      <div id="profile"><img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png"></div>
+    </a>
+
+    <!-- the username -->
+    <h3>{{player.first_name}} {{player.last_name}}</h3>
+    
+    <!-- and role or location -->
+    <h4>{{player.city}}</h4>
+    
+  </header>
+  
+  <!-- bit of a bio; who are you? -->
+  <div class="profile-bio">
+    
+    <p> Position: {{player.position}} </p>
+    <!--<p> Club: {{club}} </p>-->
+    <p> GPA: {{player.GPA}} </p>
+    
+  </div>
+  </aside>
+
+    </div>
+
+  {% endfor %}
+
+  </div>
+</div>
+
+  {% endblock %} 
+  
+<div class="container-fluid text-center">    
+  <h3>Explore</h3><br>
+  <div class="row">
+    
+    <div class="col-sm-4">
+  
+  <aside class="profile-card">
+  <header>    
+    <!-- here’s the avatar -->
+    <a href="http://kanishkkunal.in"> <!-- http://profile of person -->
+      <img src="https://studyqa.com/media/upload/univers/840/51/princeton-university-uni_profile_84051.jpg" width="125" height="125">
+    </a>
+
+    <!-- the username -->
+    <h3>Princeton University</h3>
+    
+    <!-- and role or location -->
+    <h4>Princeton, NJ</h4>
+    
+  </header>
+  
+  <!-- bit of a bio; who are you? -->
+  <div class="profile-bio">
+    
+    <p> Conference: Ivy League </p>
+    <p> Head Coach: miiiiiiike </p>
+    
+  </div>
+  </aside>
+    </div>
+
+
+
+
+
+</div><br>
+
+
+</body>
+</html>

@@ -25,5 +25,7 @@ urlpatterns = [
 	url(r'^signupCoach/', include('signup.urls')),
 	url(r'^profile/', include('signup.urls')),
 	url(r'^playerProfile/', include('signup.urls')),
+    url(r'^exploreCoach/',  include('signup.urls')),
+    url(r'^explorePlayer/',  include('signup.urls')),
 	url(r'^admin/', admin.site.urls)
 ]
