@@ -10,12 +10,18 @@ class CoachSignup(forms.ModelForm):
 	school = forms.CharField(label='School', max_length=25)
 	phone = forms.CharField(label='Phone Number', max_length=25)
 	email = forms.CharField(label='Email', max_length=25)
+	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
+
+	#logo = forms.ImageField(required=False, label="logo")
+
+
 	class Meta:
 		model = Coach
-		fields = ['first_name', 'last_name', 'school', 'email', 'phone']
+		fields = ['first_name', 'last_name', 'school', 'email', 'phone', 'video']
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
-	helper.form_method = 'POST'"""
+	helper.form_method = 'POST'
+	"""
 	
 
 class PlayerSignup(forms.ModelForm):
@@ -30,6 +36,7 @@ class PlayerSignup(forms.ModelForm):
 	SAT = forms.IntegerField(label='SAT')
 	ACT = forms.IntegerField(label='ACT')
 	birthDate = forms.DateField(label='Birth Date', widget=SelectDateWidget(years=range(1985, datetime.date.today().year+10)))
+	#video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	class Meta:
 		model = Player
 		fields = ['first_name', 'last_name', 'city', 'state', 'school', 'position', 'SAT', 'ACT', 'email', 'phone', 'birthDate']
