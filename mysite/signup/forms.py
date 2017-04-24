@@ -4,12 +4,11 @@ from signup.models import Coach, Player
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import TabHolder, Tab
 from django.forms.extras.widgets import SelectDateWidget
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 class CoachSignup(forms.ModelForm):
-	first_name = forms.CharField(label='First Name', max_length=25)
-	last_name = forms.CharField(label='Last Name', max_length=25)
 	school = forms.CharField(label='School', max_length=25)
 	phone = forms.CharField(label='Phone Number', max_length=25)
-	email = forms.CharField(label='Email', max_length=25)
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 
 	#logo = forms.ImageField(required=False, label="logo")
@@ -17,7 +16,7 @@ class CoachSignup(forms.ModelForm):
 
 	class Meta:
 		model = Coach
-		fields = ['first_name', 'last_name', 'school', 'email', 'phone', 'video']
+		fields = ['school', 'phone', 'video']
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
 	helper.form_method = 'POST'
@@ -25,13 +24,10 @@ class CoachSignup(forms.ModelForm):
 	
 
 class PlayerSignup(forms.ModelForm):
-	first_name = forms.CharField(label='First Name', max_length=25)
-	last_name = forms.CharField(label='Last Name', max_length=25)
 	city = forms.CharField(label='City', max_length=25)
 	state = forms.CharField(label='State', max_length=25)
 	school = forms.CharField(label='School', max_length=25)
 	position = forms.CharField(label='Position', max_length=25)
-	email = forms.CharField(label='Email', max_length=25)
 	phone = forms.CharField(label='Phone Number', max_length=25)
 	SAT = forms.IntegerField(label='SAT')
 	ACT = forms.IntegerField(label='ACT')
@@ -39,4 +35,9 @@ class PlayerSignup(forms.ModelForm):
 	#video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	class Meta:
 		model = Player
-		fields = ['first_name', 'last_name', 'city', 'state', 'school', 'position', 'SAT', 'ACT', 'email', 'phone', 'birthDate']
+		fields = ['city', 'state', 'school', 'position', 'SAT', 'ACT','phone', 'birthDate']
+	
+class UserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ('first_name', 'last_name','username', 'email')

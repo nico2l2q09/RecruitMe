@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from .forms import CoachSignup
 from .forms import PlayerSignup
+from .forms import UserForm
 from django.contrib.auth.models import User
 from signup.models import Coach, Player
 
@@ -23,16 +23,18 @@ def signupPlayer(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
 		form = CoachSignup(request.POST)
-		print "ok"
+		form1 = UserForm(request.POST)
 		# check whether it's valid:
-		if form.is_valid():
+		if form.is_valid() and form1.is_valid():
 			# process the data in form.cleaned_data as required
 			new = form.save()
+			new1 = form1.save()
 			# redirect to a new URL:
 			return HttpResponseRedirect('http://localhost:8000/playerProfile')
 	else: 
 		form = PlayerSignup()
-	return render(request, 'signupPlayer.html', {'form': form})
+		form1 = UserForm()
+	return render(request, 'signupPlayer.html', {'form': form, 'form1': form1})
 
 def getSignuphtml():
 	f =  open("signup/signupPlayer.html", "r")
@@ -43,96 +45,31 @@ def signupCoach(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
 		form = CoachSignup(request.POST)
-		print "ok"
-	
+		form1 = UserForm(request.POST)
 		# check whether it's valid:
-		if form.is_valid():
+		if form.is_valid() and form1.is_valid():
 			# process the data in form.cleaned_data as required
 			new = form.save()
+			new1 = form1.save()
+			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+			login(request, user)
 			# redirect to a new URL:
 			return HttpResponseRedirect('http://localhost:8000/profile/')
-
-	# if a GET (or any other method) we'll create a blank form
+		# if a GET (or any other method) we'll create a blank form
 	else: 
 		form = CoachSignup()
-	return render(request, 'signupCoach.html', {'form': form})
+		form1 = UserForm()
+	return render(request, 'signupCoach.html', {'form': form, 'form1': form1})
 
 def profile(request):
-	a = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Simply Me</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  .img-circle {
-    border:3px solid #555555;
-  }
-  .bg-1 { 
-      background-color: #ffffff;
-      color: #555555;
-  }
-  .bg-2 { 
-      background-color: #474e5d;
-      color: #ffffff;
-  }
-  .container-fluid {
-      padding-top: 30px;
-      padding-bottom: 30px;
-  }
-  </style>
-<link rel = "stylesheet"
-   type = "text/css"
-   href = "myStyle.css" />
-</head>
-<body>
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
-      </button>
-      <a class="navbar-brand" href="#">Me</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container-fluid bg-1 text-center">
-  <h3>  Princeton </h3>
-  <img src="https://studyqa.com/media/upload/univers/840/51/princeton-university-uni_profile_84051.jpg" class="img-circle" alt="Goodies" width="350" height="350">
-  <h4>Class of 2018 at  San Francisco University High School</h4> 
-  <h4>Forward for Marin FC</h4>
-  <h4>I'm looking to get recruited by a great school</h4>
-</div>
-
-<div class="container-fluid bg-2 text-center">
-  <h3>Information</h3>
-<center>"""
-	print (Coach.objects.values('school'), Coach.objects.values('first_name'))
-
-	b = """<p><font face="verdana" color="white"><strong>League:</strong> %s </font></p>
-	<p><font face="verdana" color="white"><strong>Head Coach:</strong> %s </font></p>
-	<p><font face="verdana" color="white"><strong>Assistant Coach:</strong> %s </font></p>
-	<p><font face="verdana" color="white"><strong>School Website:</strong> %s </font></p>
-	<p><font face="verdana" color="white"><strong>Program Website:</strong> %s </font></p>""" % (Coach.objects.values('first_name'), Coach.objects.values('school'),Coach.objects.values('first_name'),Coach.objects.values('first_name'),Coach.objects.values('first_name'))
-	return HttpResponse(a)
+	a_list = Coach.objects.filter(first_name='Nico')
+	context = {'name': 'Nico', 'user_list': a_list}
+	return render(request, 'coach.html', context)
 
 def playerProfile(request):
-	f = open("signup/player.html", "r")
-	r = f.read()
-	return HttpResponse(r)
+	a_list = Player.objects.filter(first_name='Nico')
+	context = {'name': 'Nico', 'player_list': a_list}
+	return render(request, 'player.html', context)
 
 def exploreCoach(request):
 	a_list = Coach.objects.all()

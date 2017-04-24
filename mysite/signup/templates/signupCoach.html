@@ -32,6 +32,7 @@
      <div class="panel-body">
 <form action="/signupCoach/" method="POST">
     {% csrf_token %}
+    {{ form1|crispy }}
     {{ form|crispy }}
     <input type="submit" value="Submit">
 </form>
