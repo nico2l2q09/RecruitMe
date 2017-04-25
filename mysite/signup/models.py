@@ -16,9 +16,11 @@ class Player(models.Model):
 	phone = models.CharField(max_length=25)
 	SAT = models.IntegerField()
 	ACT = models.IntegerField()
-	GPA = models.IntegerField()
+	GPA = models.DecimalField(decimal_places=2, max_digits=3)
 	birthDate = models.DateField()
 	video = models.CharField(max_length=150, default='none')
+	grad_year = models.CharField(max_length=10, default='none')
+
 
 	#video = models.CharField(max_length=150)
 
@@ -34,4 +36,12 @@ class Coach(models.Model):
 	#video = models.CharField(max_length=150)
 
 	#logo = models.ImageField(upload_to = 'logos/', null=True)
+
+class Matches(models.Model):
+	player_id = models.IntegerField()
+	coach_id = models.IntegerField()
+	p_interest = models.IntegerField(default=5)
+	c_interest = models.IntegerField(default=5)
+
+
 
