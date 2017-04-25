@@ -14,7 +14,8 @@ def index(request):
 	if request.method == 'POST':
 		user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 		login(request, user)
-		return HttpResponseRedirect('http://localhost:8000/profile')
+		if request.user.is_authenticated():
+			return HttpResponseRedirect('http://localhost:8000/profile')
 	else:
 		return render(request, 'index.html')
 	
@@ -23,24 +24,18 @@ def index(request):
 def signupPlayer(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
-		form = CoachSignup(request.POST)
-		form1 = UserForm(request.POST)
-		# check whether it's valid:
-		if form.is_valid() and form1.is_valid():
-			# process the data in form.cleaned_data as required
-			new = form.save()
-			new1 = form1.save()
-			# redirect to a new URL:
-			return HttpResponseRedirect('http://localhost:8000/playerProfile')
-	else: 
-		form = PlayerSignup()
-		form1 = UserForm()
-	return render(request, 'signupPlayer.html', {'form': form, 'form1': form1})
-def login(request):
-	if request.method == 'POST':
-	# create a form instance and populate it with data from the request:
-		form = CoachSignup(request.POST)
-		form1 = UserForm(request.POST)
+		form = CoachSignup(city=request.POST['city'],
+		state=request.POST['state'],
+		school=request.POST['school'],
+		position=request.POST['position'],
+		phone=request.POST['phone'],
+		SAT=request.POST['SAT'],
+		ACT=request.POST['ACT'],
+		birthDate=request.POST['birthDate'])
+		form1 = UserForm(username=request.POST['username'],
+		first_name=request.POST['first_name'],
+		last_name=request.POST['last_name'],
+		email=request.POST['email'])
 		# check whether it's valid:
 		if form.is_valid() and form1.is_valid():
 			# process the data in form.cleaned_data as required
@@ -61,13 +56,17 @@ def getSignuphtml():
 def signupCoach(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
+		
 		form = CoachSignup(request.POST)
 		form1 = UserForm(request.POST)
 		# check whether it's valid:
 		if form.is_valid() and form1.is_valid():
 			# process the data in form.cleaned_data as required
-			new = form.save()
 			new1 = form1.save()
+			new = form.save(commit=False)
+			new.username = new1
+			new.save()
+			
 			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 			login(request, user)
 			# redirect to a new URL:
@@ -80,12 +79,12 @@ def signupCoach(request):
 
 def profile(request, username=None):
 	if username:
-		a_list = User.objects.filter(username=username)
+		a_list = Coach.objects.filter(username=username)
 		context = {'user_list': a_list}
 		return render(request, 'coach.html', context)
 	else: 
 		if request.user.is_authenticated():
-			a_list = User.objects.filter(username=request.user.username)
+			a_list = Coach.objects.filter(username=request.user)
 			context = {'user_list': a_list}
 		return render(request, 'coach.html', context)
 
@@ -96,7 +95,7 @@ def playerProfile(request, username=None):
 		return render(request, 'player.html', context)
 	else: 
 		if request.user.is_authenticated():
-			a_list = User.objects.filter(username=request.user.username)
+			a_list = User.objects.filter(username=request.user)
 			context = {'user_list': a_list}
 		return render(request, 'player.html', context)
 

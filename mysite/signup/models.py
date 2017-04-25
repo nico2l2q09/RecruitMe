@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class Player(models.Model):
 	#first_name = models.CharField(max_length=25, default='Kayla')
 	#last_name = models.CharField(max_length=25, default='Symanovich')
-	user = models.OneToOneField(User)
+	username = models.OneToOneField(User)
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
 	school = models.CharField(max_length=25)
@@ -28,14 +28,14 @@ class Player(models.Model):
 
 
 class Coach(models.Model):
-	user = models.OneToOneField(User)
+	username = models.OneToOneField(User)
 	school = models.CharField(max_length=25)
 	head_coach = models.CharField(max_length=50, default='none')
 	assistant_coach = models.CharField(max_length=50, default='none')
 	phone = models.CharField(max_length=25)
 	email = models.CharField(max_length=25, default='none')
 	league = models.CharField(max_length=25, default='none')
-
+	video = models.CharField(max_length=150, default='none')
 	#video = models.CharField(max_length=150)
 
 	#logo = models.ImageField(upload_to = 'logos/', null=True)
