@@ -12,12 +12,18 @@ from signup.models import Coach, Player, Matches
 
 def index(request):
 	if request.method == 'POST':
-		user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		login(request, user)
 		if request.user.is_authenticated():
-			return HttpResponseRedirect('http://localhost:8000/profile')
+			if Coach.objects.filter(username=request.user):
+				a_list = Coach.objects.filter(username=request.user)
+				context = {'user_list': a_list}
+				return render(request, 'coach.html', context)
+			else: 
+				a_list = Player.objects.filter(username=request.user)
+				context = {'player_list': a_list}
+				return render(request, 'player.html', context)
 	else:
-		print "error"
 		return render(request, 'index.html')
 	
 
