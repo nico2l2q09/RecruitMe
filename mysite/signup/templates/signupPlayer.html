@@ -30,10 +30,16 @@
                Sign up as Player</h4>
       </div>
      <div class="panel-body">
-<form action="http://localhost:8000/signupPlayer/" method="POST">
-    {%crispy form%}
+<form action="/signupPlayer/" method="POST">
+    {% csrf_token %}
+    {{ form1|crispy }}
+    {{ form|crispy }}
     <input type="submit" value="Submit">
 </form>
+<!-- <form action="http://localhost:8000/signupPlayer/" method="POST">
+    {%crispy form%}
+    <input type="submit" value="Submit">
+</form> -->
 </div>
  </div>
       <div class="panel-footer">
@@ -42,3 +48,5 @@
 </div>
 </div>
 </div>
+
+

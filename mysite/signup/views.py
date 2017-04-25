@@ -8,7 +8,7 @@ from .forms import CoachSignup
 from .forms import PlayerSignup
 from .forms import UserForm
 from django.contrib.auth.models import User
-from signup.models import Coach, Player
+from signup.models import Coach, Player, Matches
 
 def index(request):
 	if request.method == 'POST':
@@ -17,6 +17,7 @@ def index(request):
 		if request.user.is_authenticated():
 			return HttpResponseRedirect('http://localhost:8000/profile')
 	else:
+		print "error"
 		return render(request, 'index.html')
 	
 
@@ -24,34 +25,26 @@ def index(request):
 def signupPlayer(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
-		form = CoachSignup(city=request.POST['city'],
-		state=request.POST['state'],
-		school=request.POST['school'],
-		position=request.POST['position'],
-		phone=request.POST['phone'],
-		SAT=request.POST['SAT'],
-		ACT=request.POST['ACT'],
-		birthDate=request.POST['birthDate'])
-		form1 = UserForm(username=request.POST['username'],
-		first_name=request.POST['first_name'],
-		last_name=request.POST['last_name'],
-		email=request.POST['email'])
+		
+		form = PlayerSignup(request.POST)
+		form1 = UserForm(request.POST)
 		# check whether it's valid:
 		if form.is_valid() and form1.is_valid():
 			# process the data in form.cleaned_data as required
-			new = form.save()
 			new1 = form1.save()
+			new = form.save(commit=False)
+			new.username = new1
+			new.save()
+			
+			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+			login(request, user)
 			# redirect to a new URL:
-			return HttpResponseRedirect('http://localhost:8000/playerProfile')
+			return HttpResponseRedirect('http://localhost:8000/playerProfile/')
+		# if a GET (or any other method) we'll create a blank form
 	else: 
 		form = PlayerSignup()
 		form1 = UserForm()
 	return render(request, 'signupPlayer.html', {'form': form, 'form1': form1})
-
-def getSignuphtml():
-	f =  open("signup/signupPlayer.html", "r")
-	r = f.read()
-	return r
 
 def signupCoach(request):
 	if request.method == 'POST':
@@ -89,14 +82,15 @@ def profile(request, username=None):
 		return render(request, 'coach.html', context)
 
 def playerProfile(request, username=None):
+	print username
 	if username:
-		a_list = User.objects.filter(username=username)
-		context = {'user_list': a_list}
+		a_list = Player.objects.filter(username=username)
+		context = {'player_list': a_list}
 		return render(request, 'player.html', context)
 	else: 
 		if request.user.is_authenticated():
-			a_list = User.objects.filter(username=request.user)
-			context = {'user_list': a_list}
+			a_list = Player.objects.filter(username=request.user)
+			context = {'player_list': a_list}
 		return render(request, 'player.html', context)
 
 def exploreCoach(request):
@@ -108,6 +102,31 @@ def explorePlayer(request):
 	a_list = Player.objects.all()
 	context = {'player_list': a_list}
 	return render(request, 'explorePlayer.html', context)
+
+def matchesPlayer(request):
+	a1_list = []
+	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('coach_id')
+	for ID in a_list:
+		obj = Coach.objects.filter(id=ID[0])
+		a1_list.append(obj[0])
+		print a1_list
+
+	context = {'matches_list': a1_list}
+	return render(request, 'matchesPlayer.html', context)
+
+def matchesCoach(request):
+	a1_list = []
+	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('player_id')
+	for ID in a_list:
+		print ID[0] # gives player id where both fields are 1
+		obj = Player.objects.filter(id=ID[0])
+		#obj = Player.objects.get(username_id=ID[0])
+		print obj[0]
+		a1_list.append(obj[0])
+
+	context = {'matches_list': a1_list}
+	return render(request, 'matchesCoach.html', context)
+
 #def index(request):
 	#template = loader.get_template('signup/index.html')
 
