@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 class Player(models.Model):
 	#first_name = models.CharField(max_length=25, default='Kayla')
 	#last_name = models.CharField(max_length=25, default='Symanovich')
+	user = models.OneToOneField(User)
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
 	school = models.CharField(max_length=25)
@@ -26,6 +28,7 @@ class Player(models.Model):
 
 
 class Coach(models.Model):
+	user = models.OneToOneField(User)
 	school = models.CharField(max_length=25)
 	head_coach = models.CharField(max_length=50, default='none')
 	assistant_coach = models.CharField(max_length=50, default='none')
