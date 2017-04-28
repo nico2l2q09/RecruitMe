@@ -78,29 +78,39 @@ def signupCoach(request):
 		form1 = UserForm()
 	return render(request, 'signupCoach.html', {'form': form, 'form1': form1})
 
-def profile(request, username=None):
+# def profile(request, username=None):
 	
-	if username:
-		a_list = Coach.objects.filter(username=username)
-		context = {'user_list': a_list}
-		return render(request, 'coach.html', context)
-	else: 
-		if request.user.is_authenticated():
-			a_list = Coach.objects.filter(username=request.user)
-			context = {'user_list': a_list}
-		return render(request, 'coach.html', context)
+# 	if username:
+# 		a_list = Coach.objects.filter(username=username)
+# 		context = {'user_list': a_list}
+# 		return render(request, 'coach.html', context)
+# 	else: 
+# 		if request.user.is_authenticated():
+# 			a_list = Coach.objects.filter(username=request.user)
+# 			context = {'user_list': a_list}
+# 		return render(request, 'coach.html', context)
 
-def playerProfile(request, username=None):
+def profile(request, username=None):
 	print username
-	if username:
-		a_list = Player.objects.filter(username=username)
-		context = {'player_list': a_list}
-		return render(request, 'player.html', context)
+	if username is not None:
+		if Player.objects.filter(username=username):
+			a_list = Player.objects.filter(username=username)
+			context = {'player_list': a_list}
+			return render(request, 'player.html', context)
+		if Coach.objects.filter(username=username):
+			a_list = Coach.objects.filter(username=username)
+			context = {'user_list': a_list}
+			return render(request, 'coach.html', context)
 	else: 
 		if request.user.is_authenticated():
-			a_list = Player.objects.filter(username=request.user)
-			context = {'player_list': a_list}
-		return render(request, 'player.html', context)
+			if Player.objects.filter(username=username):
+				a_list = Player.objects.filter(username=request.user)
+				context = {'player_list': a_list}
+				return render(request, 'player.html', context)
+			if Coach.objects.filter(username=username):
+				a_list = Coach.objects.filter(username=request.user)
+				context = {'user_list': a_list}
+				return render(request, 'coach.html', context)
 
 def explore(request):
 	if request.user.is_authenticated():

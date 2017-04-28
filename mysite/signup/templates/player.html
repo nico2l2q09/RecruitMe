@@ -52,7 +52,7 @@
    {% for player in player_list %} 
 
 <div class="container-fluid bg-1 text-center">
-  <h3>{{request.user.username}}</h3>
+  <h3>{{player.username}}</h3>
   <img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png" class="img-circle" alt="Goodies" width="350" height="350">
   <h4>{{player.position}} at {{player.club}}</h4>
   <h4>{{player.city}}, {{player.state}}</h4>
