@@ -14,8 +14,7 @@ def index(request):
 	if request.method == 'POST':
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		login(request, user)
-		print "success"
-		if request.user.is_authenticated():
+		if user and user.is_authenticated:
 			if Coach.objects.filter(username=request.user):
 				a_list = Coach.objects.filter(username=request.user)
 				context = {'user_list': a_list}
@@ -24,11 +23,29 @@ def index(request):
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
 				return render(request, 'player.html', context)
-	else:
-		print "else"
-		return render(request, 'index.html')
-	
+	return render(request, 'index.html')
 
+
+	# if request.method == 'POST':
+	# 	user = authenticate(username=request.POST['username'], password=request.POST['password'])
+	# 	login(request, user)
+	# 	print "success"
+	# 	if request.user.is_authenticated():
+	# 		if Coach.objects.filter(username=request.user):
+	# 			a_list = Coach.objects.filter(username=request.user)
+	# 			context = {'user_list': a_list}
+	# 			return render(request, 'coach.html', context)
+	# 		else: 
+	# 			a_list = Player.objects.filter(username=request.user)
+	# 			context = {'player_list': a_list}
+	# 			return render(request, 'player.html', context)
+	# else:
+	# 	print "else"
+	# 	return render(request, 'index.html')
+	
+def logoutuser(request):
+	logout(request)
+	return render(request, 'index.html')
 
 def signupPlayer(request):
 	if request.method == 'POST':
@@ -57,8 +74,8 @@ def signupPlayer(request):
 def signupCoach(request):
 	if request.method == 'POST':
 	# create a form instance and populate it with data from the request:
-		
-		form = CoachSignup(request.POST)
+		print("signing up...")
+		form = CoachSignup(request.POST, request.FILES)
 		form1 = UserForm(request.POST)
 		# check whether it's valid:
 		if form.is_valid() and form1.is_valid():
@@ -68,7 +85,7 @@ def signupCoach(request):
 			new.username = new1
 
 			new.save()
-			
+			"saved"
 			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 			login(request, user)
 			# redirect to a new URL:
@@ -94,21 +111,26 @@ def signupCoach(request):
 def profile(request, username=None):
 	print username
 	if username is not None:
-		if Player.objects.filter(username=username) is not None:
+		if Player.objects.filter(username=username):
+			print "player"
 			a_list = Player.objects.filter(username=username)
 			context = {'player_list': a_list}
 			return render(request, 'player.html', context)
 		elif Coach.objects.filter(username=username):
+			print "coach"
 			a_list = Coach.objects.filter(username=username)
 			context = {'user_list': a_list}
 			return render(request, 'coach.html', context)
 	else: 
 		if request.user.is_authenticated():
-			if Player.objects.filter(username=username) is not None:
+
+			print "myprofile player"
+			if Player.objects.filter(username=username):
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
 				return render(request, 'player.html', context)
 			elif Coach.objects.filter(username=username):
+				print "myprofile player"
 				a_list = Coach.objects.filter(username=request.user)
 				context = {'user_list': a_list}
 				return render(request, 'coach.html', context)

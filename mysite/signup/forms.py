@@ -9,10 +9,10 @@ from django.contrib.auth.models import User
 
 class CoachSignup(forms.ModelForm):
 	school = forms.CharField(label='School', max_length=25)
-	head_coach = forms.CharField(max_length=50)
-	assistant_coach = forms.CharField(max_length=50)
-	league = forms.CharField(max_length=25)
-	phone = forms.CharField(label='Phone Number', max_length=25)
+	head_coach = forms.CharField(max_length=50, required=False)
+	assistant_coach = forms.CharField(max_length=50, required=False)
+	league = forms.CharField(max_length=25, required=False)
+	phone = forms.CharField(label='Phone Number', max_length=25, required=False)
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")

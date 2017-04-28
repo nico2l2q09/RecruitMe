@@ -30,7 +30,7 @@
                Sign up as Coach</h4>
       </div>
      <div class="panel-body">
-<form action="/signupCoach/" method="POST">
+<form action="/signupCoach/" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     {{ form1|crispy }}
     {{ form|crispy }}

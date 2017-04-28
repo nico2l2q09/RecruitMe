@@ -33,7 +33,7 @@ class Coach(models.Model):
 	email = models.CharField(max_length=25, default='none')
 	league = models.CharField(max_length=25, default='none')
 	video = models.CharField(max_length=150, default='none')
-	photo = models.ImageField(upload_to='/signup/media', max_length=100000)
+	photo = models.ImageField(upload_to='documents/', default='media/none/no-img.jpg', max_length=100000)
 
 	#video = models.CharField(max_length=150)
 

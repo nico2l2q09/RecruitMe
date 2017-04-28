@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^explore/', views.explore, name='explore'),
     #url(r'^explorePlayer/', views.explorePlayer, name='explorePlayer'),
     url(r'^matches/', views.matches, name='matches'),
+    url(r'^logout/', views.logoutuser, name='logoutuser'),
    # url(r'^matchesCoach/', views.matchesCoach, name='matchesCoach')
 ]
