@@ -127,29 +127,43 @@ def explore(request):
 # 	context = {'player_list': a_list}
 # 	return render(request, 'explorePlayer.html', context)
 
-def matchesPlayer(request):
-	a1_list = []
-	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('coach_id')
-	for ID in a_list:
-		obj = Coach.objects.filter(id=ID[0])
-		a1_list.append(obj[0])
-		print a1_list
+def matches(request):
+	if request.user.is_authenticated():
+		if Coach.objects.filter(username=request.user):
+			a1_list = []
+			a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('player_id')
+			for ID in a_list:
+				print ID[0] # gives player id where both fields are 1
+				obj = Player.objects.filter(id=ID[0])
+				#obj = Player.objects.get(username_id=ID[0])
+				print obj[0]
+				a1_list.append(obj[0])
 
-	context = {'matches_list': a1_list}
-	return render(request, 'matchesPlayer.html', context)
+			context = {'matches_list': a1_list}
+			return render(request, 'matchesCoach.html', context)
+		else:
+			a1_list = []
+			a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('coach_id')
+			for ID in a_list:
+				obj = Coach.objects.filter(id=ID[0])
+				a1_list.append(obj[0])
+				print a1_list
 
-def matchesCoach(request):
-	a1_list = []
-	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('player_id')
-	for ID in a_list:
-		print ID[0] # gives player id where both fields are 1
-		obj = Player.objects.filter(id=ID[0])
-		#obj = Player.objects.get(username_id=ID[0])
-		print obj[0]
-		a1_list.append(obj[0])
+			context = {'matches_list': a1_list}
+			return render(request, 'matchesPlayer.html', context)
 
-	context = {'matches_list': a1_list}
-	return render(request, 'matchesCoach.html', context)
+# def matchesCoach(request):
+# 	a1_list = []
+# 	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('player_id')
+# 	for ID in a_list:
+# 		print ID[0] # gives player id where both fields are 1
+# 		obj = Player.objects.filter(id=ID[0])
+# 		#obj = Player.objects.get(username_id=ID[0])
+# 		print obj[0]
+# 		a1_list.append(obj[0])
+
+# 	context = {'matches_list': a1_list}
+# 	return render(request, 'matchesCoach.html', context)
 
 #def index(request):
 	#template = loader.get_template('signup/index.html')

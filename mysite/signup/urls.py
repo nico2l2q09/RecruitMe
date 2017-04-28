@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^playerProfile/(?P<username>\w+$)', views.playerProfile, name='playerProfile'),
     url(r'^explore/', views.explore, name='explore'),
     #url(r'^explorePlayer/', views.explorePlayer, name='explorePlayer'),
-    url(r'^matchesPlayer/', views.matchesPlayer, name='matchesPlayer'),
-    url(r'^matchesCoach/', views.matchesCoach, name='matchesCoach')
+    url(r'^matches/', views.matches, name='matches'),
+   # url(r'^matchesCoach/', views.matchesCoach, name='matchesCoach')
 ]
