@@ -66,6 +66,7 @@ def signupCoach(request):
 			new1 = form1.save()
 			new = form.save(commit=False)
 			new.username = new1
+
 			new.save()
 			
 			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
@@ -93,21 +94,21 @@ def signupCoach(request):
 def profile(request, username=None):
 	print username
 	if username is not None:
-		if Player.objects.filter(username=username):
+		if Player.objects.filter(username=username) is not None:
 			a_list = Player.objects.filter(username=username)
 			context = {'player_list': a_list}
 			return render(request, 'player.html', context)
-		if Coach.objects.filter(username=username):
+		elif Coach.objects.filter(username=username):
 			a_list = Coach.objects.filter(username=username)
 			context = {'user_list': a_list}
 			return render(request, 'coach.html', context)
 	else: 
 		if request.user.is_authenticated():
-			if Player.objects.filter(username=username):
+			if Player.objects.filter(username=username) is not None:
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
 				return render(request, 'player.html', context)
-			if Coach.objects.filter(username=username):
+			elif Coach.objects.filter(username=username):
 				a_list = Coach.objects.filter(username=request.user)
 				context = {'user_list': a_list}
 				return render(request, 'coach.html', context)

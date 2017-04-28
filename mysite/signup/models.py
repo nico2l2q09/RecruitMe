@@ -22,10 +22,7 @@ class Player(models.Model):
 	birthDate = models.DateField()
 	video = models.CharField(max_length=150, default='none')
 	grad_year = models.CharField(max_length=10, default='none')
-
-
 	#video = models.CharField(max_length=150)
-
 
 class Coach(models.Model):
 	username = models.OneToOneField(User)
@@ -36,6 +33,8 @@ class Coach(models.Model):
 	email = models.CharField(max_length=25, default='none')
 	league = models.CharField(max_length=25, default='none')
 	video = models.CharField(max_length=150, default='none')
+	photo = models.ImageField(upload_to='/signup/media', max_length=100000)
+
 	#video = models.CharField(max_length=150)
 
 	#logo = models.ImageField(upload_to = 'logos/', null=True)

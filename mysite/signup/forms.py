@@ -14,13 +14,13 @@ class CoachSignup(forms.ModelForm):
 	league = forms.CharField(max_length=25)
 	phone = forms.CharField(label='Phone Number', max_length=25)
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
-
+	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")
 
 
 	class Meta:
 		model = Coach
-		fields = ['school', 'head_coach', 'assistant_coach', 'league', 'phone', 'video']
+		fields = ['school', 'head_coach', 'assistant_coach', 'league', 'phone', 'video', 'photo']
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
 	helper.form_method = 'POST'

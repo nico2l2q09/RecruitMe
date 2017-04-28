@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'recruitme',
-        'USER': 'postgres',
-        'PASSWORD': 'Why$thed0g09',
+        'USER': 'kaykaybug',
+        #'PASSWORD': 'Why$thed0g09',
     }
 }
 
@@ -129,4 +129,6 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_final')
 
-LOGIN_REDIRECT_URL = '/playerProfile'
+LOGIN_REDIRECT_URL = '/profile'
+MEDIA_ROOT = '/signup/media'
+MEDIA_URL = 'http://media.example.com/'
