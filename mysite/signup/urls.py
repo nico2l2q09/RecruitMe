@@ -9,9 +9,9 @@ urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile/(?P<username>\w+$)', views.profile, name='profile'),
     url(r'^playerProfile/', views.playerProfile, name='playerProfile'),
-    url(r'^playerProfile/(?P<username>\w+$)', views.playerProfile, name='profile'),
-    url(r'^exploreCoach/', views.exploreCoach, name='exploreCoach'),
-    url(r'^explorePlayer/', views.explorePlayer, name='explorePlayer'),
+    url(r'^playerProfile/(?P<username>\w+$)', views.playerProfile, name='playerProfile'),
+    url(r'^explore/', views.explore, name='explore'),
+    #url(r'^explorePlayer/', views.explorePlayer, name='explorePlayer'),
     url(r'^matchesPlayer/', views.matchesPlayer, name='matchesPlayer'),
     url(r'^matchesCoach/', views.matchesCoach, name='matchesCoach')
 ]

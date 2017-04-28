@@ -29,6 +29,19 @@
       padding-top: 30px;
       padding-bottom: 30px;
   }
+
+  #button1 {
+    display: inline-block;
+    padding: 2px 8px;
+    float: left;
+/**other codes**/
+}
+
+#button2 {
+ display: inline-block;
+    padding: 2px 8px;
+    float: right;
+}
   </style>
 <link rel = "stylesheet"
    type = "text/css"
@@ -39,16 +52,16 @@
    {% for player in player_list %} 
 
 <div class="container-fluid bg-1 text-center">
-  <h3>Alex Morgan</h3>
+  <h3>{{request.user.username}}</h3>
   <img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png" class="img-circle" alt="Goodies" width="350" height="350">
   <h4>{{player.position}} at {{player.club}}</h4>
   <h4>{{player.city}}, {{player.state}}</h4>
   <!--<h4>{{player.bio}}</h4>-->
 </div>
 
-<center><button type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">I'm Interested</button></center>
+<center><button id = "button1" type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#interest">I'm Interested</button></center>
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id = "interest" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       
@@ -62,6 +75,24 @@
     </div>
   </div>
 </div>
+
+<button type="button" id= "button2" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#nointerest">I'm Not Interested</button>
+
+<div id= "nointerest" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <p>Are you sure you are not interested?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="container-fluid bg-2 text-center">
   <h3>Education</h3>
@@ -85,7 +116,7 @@
 <!--<p><font face="verdana" color="black"><strong>Secondary Position(s):</strong> XX </font></p>-->
 <p><font face="verdana" color="black"><strong>Club Coach Contact Number:</strong> {{player.phone}} </font></p>
 <p><font face="verdana" color="black"><strong>Highlight Video:</strong> <a href = {{player.video}} >{{player.video}}</a> </font></p>
-<p><font face="verdana" color="black"><strong>Achievments:</strong> Stuff from database </font></p>
+<p><font face="verdana" color="black"><strong>Achievments:</strong> {{player.achievements}} </font></p>
 
 </center>
 </div>

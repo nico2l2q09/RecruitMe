@@ -12,7 +12,7 @@ class Player(models.Model):
 	username = models.OneToOneField(User)
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
-	school = models.CharField(max_length=25)
+	school = models.CharField(max_length=75)
 	position = models.CharField(max_length=25)
 	club = models.CharField(max_length=25, default='none')
 	phone = models.CharField(max_length=25)

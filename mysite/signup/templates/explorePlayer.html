@@ -40,26 +40,45 @@
 </head>
 <body>
 
-
  {% block content %} 
+
+<script>
+
+$('#button').click(function() {    
+    $.ajax({
+        url: your_url,
+        method: 'POST', // or another (GET), whatever you need
+        data: {
+            name: value, // data you need to pass to your function
+            click: True
+        }
+        success: function (data) {        
+            // success callback
+            // you can process data returned by function from views.py
+        }
+    });
+});
+
+</script>
 
 <div class="container-fluid text-center">    
   <h3>Explore</h3><br>
     <div class="row">  
 
-  {% for player in player_list %}  
+  {% for player in user_list %}  
 
     <div class="col-sm-4"> 
       
       <aside class="panel-body">
   <header>    
     <!-- here’s the avatar -->
-    <a href="#"> <!-- http://profile of person -->
+
+    <a href="/playerProfile/{{player.username_id}}"> <!-- http://profile of person -->
       <div id="profile"><img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png"></div>
     </a>
 
     <!-- the username -->
-    <h3>{{player.first_name}} {{player.last_name}}</h3>
+    <h3>X {{player.username}}</h3>
     
     <!-- and role or location -->
     <h4>{{player.city}}, {{player.state}}</h4>

@@ -14,6 +14,7 @@ def index(request):
 	if request.method == 'POST':
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		login(request, user)
+		print "success"
 		if request.user.is_authenticated():
 			if Coach.objects.filter(username=request.user):
 				a_list = Coach.objects.filter(username=request.user)
@@ -24,6 +25,7 @@ def index(request):
 				context = {'player_list': a_list}
 				return render(request, 'player.html', context)
 	else:
+		print "else"
 		return render(request, 'index.html')
 	
 
@@ -77,6 +79,7 @@ def signupCoach(request):
 	return render(request, 'signupCoach.html', {'form': form, 'form1': form1})
 
 def profile(request, username=None):
+	
 	if username:
 		a_list = Coach.objects.filter(username=username)
 		context = {'user_list': a_list}
@@ -99,15 +102,30 @@ def playerProfile(request, username=None):
 			context = {'player_list': a_list}
 		return render(request, 'player.html', context)
 
-def exploreCoach(request):
-	a_list = Coach.objects.all()
-	context = {'name': 'Mikaela', 'user_list': a_list}
-	return render(request, 'exploreCoach.html', context)
+def explore(request):
+	if request.user.is_authenticated():
+		if Coach.objects.filter(username=request.user):
+			a_list = Player.objects.all()
+			context = {'user_list': a_list}
+			return render(request, 'explorePlayer.html', context)
+		else: 
+			a_list = Coach.objects.all()
+			context = {'user_list': a_list}
+			return render(request, 'exploreCoach.html', context)
 
-def explorePlayer(request):
-	a_list = Player.objects.all()
-	context = {'player_list': a_list}
-	return render(request, 'explorePlayer.html', context)
+
+	# a_list = Coach.objects.all()
+	# context = {'user_list': a_list}
+	# return render(request, 'exploreCoach.html', context)
+
+	# a_list = Player.objects.all()
+	# context = {'player_list': a_list}
+	# return render(request, 'explorePlayer.html', context)
+
+# def explorePlayer(request):
+# 	a_list = Player.objects.all()
+# 	context = {'player_list': a_list}
+# 	return render(request, 'explorePlayer.html', context)
 
 def matchesPlayer(request):
 	a1_list = []
