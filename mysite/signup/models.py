@@ -40,10 +40,12 @@ class Coach(models.Model):
 	#logo = models.ImageField(upload_to = 'logos/', null=True)
 
 class Matches(models.Model):
-	player_id = models.IntegerField()
-	coach_id = models.IntegerField()
-	p_interest = models.IntegerField(default=5)
-	c_interest = models.IntegerField(default=5)
+	interested = models.ManyToManyField(User, related_name='user_interested')
+	interestee = models.ManyToManyField(User, related_name='user_interestee')
+	# coach_id = models.IntegerField()
+	# player_id = models.IntegerField()
+	# c_interest = models.IntegerField(default=5)
+	# p_interest = models.IntegerField(default=5)
 
 
 
