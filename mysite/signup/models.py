@@ -10,6 +10,7 @@ class Player(models.Model):
 	#first_name = models.CharField(max_length=25, default='Kayla')
 	#last_name = models.CharField(max_length=25, default='Symanovich')
 	username = models.OneToOneField(User)
+	name = models.CharField(max_length=75, default='Ali Smith')
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
 	school = models.CharField(max_length=75)
@@ -22,6 +23,8 @@ class Player(models.Model):
 	birthDate = models.DateField()
 	video = models.CharField(max_length=150, default='none')
 	grad_year = models.CharField(max_length=10, default='none')
+	photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
+
 	#video = models.CharField(max_length=150)
 
 class Coach(models.Model):
@@ -32,8 +35,7 @@ class Coach(models.Model):
 	phone = models.CharField(max_length=25)
 	email = models.CharField(max_length=25, default='none')
 	league = models.CharField(max_length=25, default='none')
-	video = models.CharField(max_length=150, default='none')
-	photo = models.ImageField(upload_to='documents/', default='media/none/no-img.jpg', max_length=100000)
+	photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
 
 	#video = models.CharField(max_length=150)
 

@@ -40,63 +40,37 @@
 </head>
 <body>
 
+
  {% block content %} 
-
-<script>
-
-$('#button').click(function() {    
-    $.ajax({
-        url: your_url,
-        method: 'POST', // or another (GET), whatever you need
-        data: {
-            name: value, // data you need to pass to your function
-            click: True
-        }
-        success: function (data) {        
-            // success callback
-            // you can process data returned by function from views.py
-        }
-    });
-});
-
-</script>
 
 <div class="container-fluid text-center">    
   <h3>Explore</h3><br>
     <div class="row">  
 
-  {% for player in user_list %}  
-
-    <div class="col-sm-4"> 
-      
-      <aside class="panel-body">
-  <header>    
+  {% for coach in user_list %}  
+   <div class="col-md-4">
+        <aside class="panel-body">
+          <header>    
     <!-- here’s the avatar -->
+        <a href="#"> <!-- http://profile of person -->
+        <img src="https://studyqa.com/media/upload/univers/840/51/princeton-university-uni_profile_84051.jpg" width="125" height="125">
+        </a>
 
-    <a href="/profile/{{player.username_id}}"> <!-- http://profile of person -->
-      <div id="profile"><img src="{{player.photo.url}}" width="175" height="250"></div>
-    </a>
-
-    <!-- the username -->
-    <h3>{{player.name}}</h3>
+    <!-- the username ADD A + LAST NAME!!!!!!-->
+    <h3>{{coach.first_name}} {{coach.last_name}}</h3>
     
     <!-- and role or location -->
-    <h4>{{player.city}}, {{player.state}}</h4>
+    <h4>{{coach.school}}</h4>
     
   </header>
   
   <!-- bit of a bio; who are you? -->
   <div class="profile-bio">
-    
-    <p> Position: {{player.position}} </p>
-    <!--<p> Club: {{club}} </p>-->
-    <p> GPA: {{player.GPA}} </p>
-    
+    <!--<p> Conference: Ivy League </p>
+    <p> Head Coach: miiiiiiike </p>-->
   </div>
   </aside>
-
-    </div>
-
+  </div>
   {% endfor %}
 
   </div>
@@ -135,7 +109,34 @@ $('#button').click(function() {
   </aside>
     </div>
 
+    <div class="col-sm-4"> 
+      
+      <aside class="profile-card">
+  <header>    
+    <!-- here’s the avatar -->
+    <a href="http://kanishkkunal.in"> <!-- http://profile of person -->
+      <div id="profile"><img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png"></div>
+    </a>
 
+    <!-- the username -->
+    <h3>Mikaela Symanovich</h3>
+    
+    <!-- and role or location -->
+    <h4>San Francisco, CA</h4>
+    
+  </header>
+  
+  <!-- bit of a bio; who are you? -->
+  <div class="profile-bio">
+    
+    <p> Position: Forward </p>
+    <p> Club: Marin FC </p>
+    <p> GPA: 4.00 </p>
+    
+  </div>
+  </aside>
+
+    </div>
 
 
 

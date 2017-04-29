@@ -51,15 +51,14 @@
    {% block content %} 
    {% for player in player_list %} 
 
-<div class="container-fluid bg-1 text-center">
-  <h3>{{player.username}}</h3>
-  <img src="https://img.fifa.com/images/fwwc/2015/players/prt-3/302753.png" class="img-circle" alt="Goodies" width="350" height="350">
+<div style="background: #e9eefc; border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;width:700px;box-shadow: 0 0 5px black;margin-top:15px;margin-bottom:15px;" class="container-fluid bg-1 text-center">
+  <h3>{{player.name}}</h3>
+  <img src="{{player.photo.url}}" alt="Goodies" width="225" height="300">
   <h4>{{player.position}} at {{player.club}}</h4>
   <h4>{{player.city}}, {{player.state}}</h4>
   <!--<h4>{{player.bio}}</h4>-->
-</div>
 
-<center><button id = "button1" type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#interest">I'm Interested</button></center>
+<center><button id = "button1" style="margin-bottom:3px;" type="button" class="btn btn-primary btn-success" data-toggle="modal" data-target="#interest">I'm Interested</button></center>
 
 <div id = "interest" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
@@ -76,7 +75,7 @@
   </div>
 </div>
 
-<center><button type="button" id= "button2" href="localhost:8000/noInterest" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#nointerest">I'm Not Interested</button></center>
+<center><button type="button" id= "button2" style="margin-bottom:15px;" href="localhost:8000/noInterest" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#nointerest">I'm Not Interested</button></center>
 
 <div id= "nointerest" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
@@ -94,7 +93,14 @@
 </div>
 
 
-<div class="container-fluid bg-2 text-center">
+
+
+
+</div>
+
+
+
+<div style="background-color:MintCream ;border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;width:700px;box-shadow: 0 0 5px black;margin-top:15px;margin-bottom:15px;" class="container-fluid bg-2 text-center">
   <h3>Education</h3>
 <center>
 
@@ -102,12 +108,11 @@
 <p><font face="verdana" color="black"><strong>GPA:</strong> {{player.GPA}} </font></p>
 <p><font face="verdana" color="black"><strong>SAT score:</strong> {{player.SAT}}</font></p>
 <p><font face="verdana" color="black"><strong>ACT score:</strong> {{player.ACT}}</font></p>
-<!--<p><font face="verdana" color="white"><strong>Achievements:</strong> {{player.achievements}} </font></p>-->
 
 </center>
 </div>
 
-<div class="container-fluid bg-3 text-center">
+<div style="background-color:lightblue;border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;width:700px;box-shadow: 0 0 5px black;margin-top:15px;margin-bottom:15px;" class="container-fluid bg-3 text-center">
   <h3>Soccer</h3>
 <center>
 
@@ -115,8 +120,8 @@
 <p><font face="verdana" color="black"><strong>Primary Position:</strong> {{player.position}} </font></p>
 <!--<p><font face="verdana" color="black"><strong>Secondary Position(s):</strong> XX </font></p>-->
 <p><font face="verdana" color="black"><strong>Club Coach Contact Number:</strong> {{player.phone}} </font></p>
-<p><font face="verdana" color="black"><strong>Highlight Video:</strong> <a href = {{player.video}} >{{player.video}}</a> </font></p>
-<p><font face="verdana" color="black"><strong>Achievments:</strong> {{player.achievements}} </font></p>
+<!--<p><font face="verdana" color="black"><strong>Highlight Video:</strong> <a href = {{player.video}} >{{player.video}}</a> </font></p>-->
+<!--<p><font face="verdana" color="black"><strong>Achievments:</strong> {{player.achievements}} </font></p>-->
 
 </center>
 </div>

@@ -13,20 +13,20 @@ class CoachSignup(forms.ModelForm):
 	assistant_coach = forms.CharField(max_length=50, required=False)
 	league = forms.CharField(max_length=25, required=False)
 	phone = forms.CharField(label='Phone Number', max_length=25, required=False)
-	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")
 
 
 	class Meta:
 		model = Coach
-		fields = ['school', 'head_coach', 'assistant_coach', 'league', 'phone', 'video', 'photo']
+		fields = ['school', 'head_coach', 'assistant_coach', 'league', 'phone', 'photo']
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
 	helper.form_method = 'POST'
 	"""
 	
 class PlayerSignup(forms.ModelForm):
+	name = forms.CharField(label='Full Name', max_length=75)
 	city = forms.CharField(label='City', max_length=50)
 	club = forms.CharField(label='Club Team', max_length=50)
 	state = forms.CharField(label='State', max_length=50)
@@ -38,11 +38,13 @@ class PlayerSignup(forms.ModelForm):
 	GPA = forms.DecimalField(label='GPA', max_digits=3, decimal_places=2)
 	birthDate = forms.DateField(label='Birth Date', widget=SelectDateWidget(years=range(1985, datetime.date.today().year+10)))
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
-	achievements = forms.CharField(required=False, label='Achievements', max_length=500)
+	#achievements = forms.CharField(required=False, label='Achievements', max_length=500)
+	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
+
 	#video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	class Meta:
 		model = Player
-		fields = ['club', 'city', 'state', 'school', 'position', 'SAT', 'ACT', 'GPA', 'phone', 'birthDate', 'video', 'achievements']
+		fields = ['name', 'club', 'city', 'state', 'school', 'position', 'SAT', 'ACT', 'GPA', 'phone', 'birthDate', 'video', 'photo']
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
 	helper.form_method = 'POST'

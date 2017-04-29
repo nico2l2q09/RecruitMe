@@ -30,7 +30,7 @@
                Sign up as Player</h4>
       </div>
      <div class="panel-body">
-<form action="/signupPlayer/" method="POST">
+<form action="/signupPlayer/" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     {{ form1|crispy }}
     {{ form|crispy }}
