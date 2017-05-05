@@ -7,8 +7,11 @@ from django.http import HttpResponseRedirect
 from .forms import CoachSignup
 from .forms import PlayerSignup
 from .forms import UserForm
+from .forms import UpdatePlayerProfile
 from django.contrib.auth.models import User
 from signup.models import Coach, Player, Matches
+from django.views.generic.edit import UpdateView
+
 
 def index(request):
 	if request.method == 'POST':
@@ -18,14 +21,30 @@ def index(request):
 			if Coach.objects.filter(username=request.user):
 				a_list = Coach.objects.filter(username=request.user)
 				context = {'user_list': a_list}
-				return render(request, 'coach.html', context)
+				return render(request, 'coach_nobuttons.html', context)
 			else: 
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
-				return render(request, 'player.html', context)
+				return render(request, 'player_nobuttons.html', context)
 	return render(request, 'index.html')
 
+class PlayerUpdate(UpdateView):
+    model = Player
+    fields = ['name', 'city', 'state', 'school', 'position', 'club', 'phone', 'SAT', 'ACT', 'GPA', 'birthDate', 'video', 'grad_year', 'photo']
+    template_name_suffix = '_update_form'
 
+
+def updateProfile(request):
+	if request.method == 'POST':
+		player = Player.objects.get(username=request.user)
+		form = UpdatePlayerProfile(request.POST, instance=player)
+		form.save()
+		return HttpResponseRedirect('http://localhost:8000/profile/')
+	else:
+		player = Player.objects.get(username=request.user)
+		form = UpdatePlayerProfile(initial={'name':player.name}, instance=player)
+	
+	return render(request, 'update_profile.html', {'form': form})
 	# if request.method == 'POST':
 	# 	user = authenticate(username=request.POST['username'], password=request.POST['password'])
 	# 	login(request, user)
@@ -109,32 +128,60 @@ def signupCoach(request):
 # 		return render(request, 'coach.html', context)
 
 def profile(request, username=None):
-	print username
+	print request.user
 	if username is not None:
-		if Player.objects.filter(username=username):
-			print "player"
-			a_list = Player.objects.filter(username=username)
-			context = {'player_list': a_list}
-			return render(request, 'player.html', context)
-		elif Coach.objects.filter(username=username):
-			print "coach"
-			a_list = Coach.objects.filter(username=username)
-			context = {'user_list': a_list}
-			return render(request, 'coach.html', context)
-	else: 
-		#if request.user.is_authenticated():
+		if Coach.objects.filter(username=username):
+			if Coach.objects.get(username=username).username == request.user:
+				print "coach logged on"
+				a_list = Coach.objects.filter(username=request.user)
+				context = {'user_list': a_list}
+				return render(request, 'coach_nobuttons.html', context)
+			elif Coach.objects.filter(username=username):
+				print "coach reg"
+				a_list = Coach.objects.filter(username=username)
+				context = {'user_list': a_list}
+				return render(request, 'coach.html', context)
+		elif Player.objects.filter(username=username):
+			if Player.objects.get(username=username).username == request.user:
+				print "player logged on"
+				a_list = Player.objects.filter(username=request.user)
+				context = {'player_list': a_list}
+				return render(request, 'player_nobuttons.html', context)
+			elif Player.objects.filter(username=username):
+				print "player reg"
+				a_list = Player.objects.filter(username=username)
+				context = {'player_list': a_list}
+				return render(request, 'player.html', context)
+	else:
+		if Coach.objects.filter(username=request.user):
+				print "coach logged on"
+				a_list = Coach.objects.filter(username=request.user)
+				context = {'user_list': a_list}
+				return render(request, 'coach_nobuttons.html', context)
+		elif Player.objects.filter(username=request.user):
+				print "player logged ON"
+				a_list = Player.objects.filter(username=request.user)
+				context = {'player_list': a_list}
+				return render(request, 'player_nobuttons.html', context)
+	
+	# if username is not None:
+	# 	if Player.objects.filter(username=request.user):
+	# 		a_list = Player.objects.filter(username=request.user)
+	# 		context = {'player_list': a_list}
+	# 		return render(request, 'player_nobuttons.html', context)
+		
 
-		print "myprofile player"
-		if Player.objects.filter(username=request.user):
-			a_list = Player.objects.filter(username=request.user)
-			context = {'player_list': a_list}
-			return render(request, 'player.html', context)
-		elif Coach.objects.filter(username=request.user):
-			print "myprofile player"
-			a_list = Coach.objects.filter(username=request.user)
-			context = {'user_list': a_list}
-			return render(request, 'coach.html', context)
+	# 	elif Coach.objects.filter(username=request.user):
+	# 		print "myprofile player"
+	# 		a_list = Coach.objects.filter(username=request.user)
+	# 		context = {'user_list': a_list}
+	# 		return render(request, 'coach.html', context)
+		
+	# else: 
+	# 	#if request.user.is_authenticated():
 
+	# 	print "xx"
+		
 def explore(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
@@ -163,6 +210,7 @@ def explore(request):
 def matches(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
+			print "coach is logged on"
 			a1_list = []
 			a_list = Matches.objects.filter(interested=request.user)
 			for ID in a_list:
@@ -171,6 +219,7 @@ def matches(request):
 					a1_list.append(Player.objects.get(obj.interested))
 				print a1_list
 		else:
+			print "player is logged on"
 			a1_list = []
 			a_list = Matches.objects.filter(interested=request.user)
 			for ID in a_list:
@@ -193,22 +242,42 @@ def makeMatch(request, username):
 def noInterest(request):
 	return None
 
-# def matchesCoach(request):
-# 	a1_list = []
-# 	a_list = Matches.objects.filter(p_interest=1, c_interest=1).values_list('player_id')
-# 	for ID in a_list:
-# 		print ID[0] # gives player id where both fields are 1
-# 		obj = Player.objects.filter(id=ID[0])
-# 		#obj = Player.objects.get(username_id=ID[0])
-# 		print obj[0]
-# 		a1_list.append(obj[0])
+def matches(request):
+	if request.user.is_authenticated():
+		if Coach.objects.filter(username=request.user):
+			a1_list = []
+			a_list = Matches.objects.filter(interested=request.user)
+			for ID in a_list:
+				try:
+					obj = Matches.objects.get(interestee=request.user, interested=ID.interestee)
+				except:
+					obj = None
+				if obj:
+					a1_list.append(Player.objects.get(username=obj.interested))
+				print a1_list
+			context = {'matches_list': a1_list}
+			return render(request, 'matchesCoach.html', context)
+		else:
+			a1_list = []
+			a_list = Matches.objects.filter(interested=request.user)
+			for ID in a_list:
+				print ID
+				try:
+					obj = Matches.objects.get(interestee=request.user, interested=ID.interestee)
+				except:
+					obj = None
+				if obj:
+					a1_list.append(Coach.objects.get(username=obj.interested))
+				print a1_list
+			context = {'matches_list': a1_list}
+			return render(request, 'matchesPlayer.html', context)
 
-# 	context = {'matches_list': a1_list}
-# 	return render(request, 'matchesCoach.html', context)
-
-#def index(request):
-	#template = loader.get_template('signup/index.html')
-
-	#return HttpResponse(template.render(request))
-	#return render(request, 'signup/index.html')
-# Create your views here.
+def makeMatch(request, username):
+	if Matches.objects.filter(interestee=username).filter(interested=request.user):
+		return HttpResponseRedirect('http://localhost:8000/profile/' + username)
+	else: 
+		match = Matches()
+		match.interested =request.user
+		match.interestee = User.objects.get(id=username)
+		match.save()
+		return HttpResponseRedirect('http://localhost:8000/profile/' + username)
