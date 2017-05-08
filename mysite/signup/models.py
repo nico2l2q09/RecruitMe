@@ -14,7 +14,11 @@ class Player(models.Model):
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
 	school = models.CharField(max_length=75)
-	position = models.CharField(max_length=25)
+	POSITION_CHOICES = (('GK', 'Goalkeeper'),
+						('MF', 'Midfield'),
+						('FW', 'Forward'),
+						('DF', 'Defense'))
+	position = models.CharField(max_length=25, choices=POSITION_CHOICES)
 	club = models.CharField(max_length=25, default='none')
 	phone = models.CharField(max_length=25)
 	SAT = models.IntegerField()

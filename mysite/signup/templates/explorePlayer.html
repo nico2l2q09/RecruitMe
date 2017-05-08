@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -63,6 +64,12 @@ $('#button').click(function() {
 
 <div class="container-fluid text-center">    
   <h3>Explore</h3><br>
+  <div class="row"> 
+  <form action="/explore/" method="POST" enctype='multipart/form-data' class='form-inline'>
+  {{ form|crispy }}
+  <input type="submit" value="Submit">
+  </form>
+  </div>
     <div class="row">  
 
   {% for player in user_list %}  

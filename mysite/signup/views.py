@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from .forms import CoachSignup
 from .forms import PlayerSignup
+from .forms import position
 from .forms import UserForm
 from .forms import UpdatePlayerProfile
 from django.contrib.auth.models import User
@@ -186,7 +187,8 @@ def explore(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
 			a_list = Player.objects.all()
-			context = {'user_list': a_list}
+			form = position()
+			context = {'user_list': a_list, 'form': form}
 			return render(request, 'explorePlayer.html', context)
 		else: 
 			a_list = Coach.objects.all()

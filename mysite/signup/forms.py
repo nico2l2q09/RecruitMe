@@ -6,7 +6,8 @@ from crispy_forms.bootstrap import TabHolder, Tab
 from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from crispy_forms.layout import Layout
+from crispy_forms.bootstrap import InlineField
 class CoachSignup(forms.ModelForm):
 	school = forms.CharField(label='School', max_length=25)
 	head_coach = forms.CharField(max_length=50, required=False)
@@ -26,12 +27,16 @@ class CoachSignup(forms.ModelForm):
 	"""
 	
 class PlayerSignup(forms.ModelForm):
+	POSITION_CHOICES = (('GK', 'Goalkeeper'),
+						('MF', 'Midfield'),
+						('FW', 'Forward'),
+						('DF', 'Defense'))
 	name = forms.CharField(label='Full Name', max_length=75)
 	city = forms.CharField(label='City', max_length=50)
 	club = forms.CharField(label='Club Team', max_length=50)
 	state = forms.CharField(label='State', max_length=50)
 	school = forms.CharField(label='School', max_length=50)
-	position = forms.CharField(label='Position', max_length=50)
+	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
 	phone = forms.CharField(label='Phone Number', max_length=40)
 	SAT = forms.IntegerField(label='SAT')
 	ACT = forms.IntegerField(label='ACT')
@@ -48,7 +53,15 @@ class PlayerSignup(forms.ModelForm):
 	"""helper = FormHelper()
 	helper.add_input(Submit('submit', 'Submit', css_class='btn-primary'))
 	helper.form_method = 'POST'
+
 	"""
+class position(forms.Form):
+	POSITION_CHOICES = (('GK', 'Goalkeeper'),
+						('MF', 'Midfield'),
+						('FW', 'Forward'),
+						('DF', 'Defense'))
+	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
+
 
 class UserForm(UserCreationForm):
 	class Meta:
