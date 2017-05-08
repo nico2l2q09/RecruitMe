@@ -14,10 +14,10 @@ class Player(models.Model):
 	city = models.CharField(max_length=25)
 	state = models.CharField(max_length=25)
 	school = models.CharField(max_length=75)
-	POSITION_CHOICES = (('GK', 'Goalkeeper'),
-						('MF', 'Midfield'),
-						('FW', 'Forward'),
-						('DF', 'Defense'))
+	POSITION_CHOICES = (('Goalkeeper', 'Goalkeeper'),
+						('Midfield', 'Midfield'),
+						('Forward', 'Forward'),
+						('Defense', 'Defense'))
 	position = models.CharField(max_length=25, choices=POSITION_CHOICES)
 	club = models.CharField(max_length=25, default='none')
 	phone = models.CharField(max_length=25)
@@ -39,7 +39,7 @@ class Coach(models.Model):
 	phone = models.CharField(max_length=25)
 	email = models.CharField(max_length=25, default='none')
 	league = models.CharField(max_length=25, default='none')
-	photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
+	photo = models.ImageField(upload_to='coaches/', default='coaches/duke-sports.jpg', max_length=100000)
 
 	#video = models.CharField(max_length=150)
 

@@ -9,6 +9,7 @@ from .forms import PlayerSignup
 from .forms import position
 from .forms import UserForm
 from .forms import UpdatePlayerProfile
+from .forms import UpdateCoachProfile
 from django.contrib.auth.models import User
 from signup.models import Coach, Player, Matches
 from django.views.generic.edit import UpdateView
@@ -37,15 +38,32 @@ class PlayerUpdate(UpdateView):
 
 def updateProfile(request):
 	if request.method == 'POST':
-		player = Player.objects.get(username=request.user)
-		form = UpdatePlayerProfile(request.POST, instance=player)
-		form.save()
-		return HttpResponseRedirect('http://localhost:8000/profile/')
+		if Player.objects.filter(username=request.user):
+			print "2"
+			player = Player.objects.get(username=request.user)
+			form = UpdatePlayerProfile(request.POST, request.FILES, instance=player)
+			if form.is_valid():
+				form.save()
+			return HttpResponseRedirect('http://localhost:8000/profile/')
+		else:
+			coach = Coach.objects.get(username=request.user)
+			form = UpdateCoachProfile(request.POST, request.FILES, instance=coach)
+			print coach.photo.url
+			if form.is_valid():
+				form.save()
+			return HttpResponseRedirect('http://localhost:8000/profile/')
+		
 	else:
-		player = Player.objects.get(username=request.user)
-		form = UpdatePlayerProfile(initial={'name':player.name}, instance=player)
-	
+		if Player.objects.filter(username=request.user):
+			print "x"
+			player = Player.objects.get(username=request.user)
+			form = UpdatePlayerProfile(initial={'name':player.name}, instance=player)
+		else:
+			coach = Coach.objects.get(username=request.user)
+			form = UpdateCoachProfile(initial={'name':coach.head_coach}, instance=coach)
 	return render(request, 'update_profile.html', {'form': form})
+
+
 	# if request.method == 'POST':
 	# 	user = authenticate(username=request.POST['username'], password=request.POST['password'])
 	# 	login(request, user)
@@ -186,14 +204,36 @@ def profile(request, username=None):
 def explore(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
-			a_list = Player.objects.all()
-			form = position()
-			context = {'user_list': a_list, 'form': form}
-			return render(request, 'explorePlayer.html', context)
+			if request.method == 'POST':
+				if request.POST["position"] == 'All':
+					a_list = Player.objects.all()
+				else:
+					a_list = Player.objects.filter(position=request.POST["position"])
+				form = position(request.POST)
+				context = {'user_list': a_list, 'form': form}
+				return render(request, 'explorePlayer.html', context)
+			else:
+				a_list = Player.objects.all()
+				form = position()
+				context = {'user_list': a_list, 'form': form}
+				return render(request, 'explorePlayer.html', context)
 		else: 
 			a_list = Coach.objects.all()
 			context = {'user_list': a_list}
 			return render(request, 'exploreCoach.html', context)
+
+
+
+	# if request.user.is_authenticated():
+	# 	if Coach.objects.filter(username=request.user):
+	# 		a_list = Player.objects.all()
+	# 		form = position()
+	# 		context = {'user_list': a_list, 'form': form}
+	# 		return render(request, 'explorePlayer.html', context)
+	# 	else: 
+	# 		a_list = Coach.objects.all()
+	# 		context = {'user_list': a_list}
+	# 		return render(request, 'exploreCoach.html', context)
 
 
 	# a_list = Coach.objects.all()

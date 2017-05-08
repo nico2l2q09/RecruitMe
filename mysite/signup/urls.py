@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^makeMatch/(?P<username>\w+$)', views.makeMatch, name='makeMatch'),
     url(r'^noInterest/(?P<username>\w+$)', views.noInterest, name='noInterest'),
     url(r'^updateProfile/', views.updateProfile, name='updateProfile'),
+
    # url(r'^matchesCoach/', views.matchesCoach, name='matchesCoach')
 ]

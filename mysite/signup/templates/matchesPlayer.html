@@ -43,32 +43,37 @@
 
  {% block content %} 
 
-<div class="container-fluid text-center">    
-  <h3>Matches</h3><br>
-    <div class="row">  
+<div class="container-fluid text-center">    
+  <h3>Matches</h3><br>
+    <div class="row">  
 
-  {% for match in matches_list %}  
-   <div class="col-md-4">
-        <aside class="panel-body">
-          <header>    
-    <!-- here’s the avatar -->
-        <a href="/profile/{{match.username_id}}"> <!-- http://profile of person -->
-        <img src="{{match.photo.url}}" width="125" height="125">
-        </a>
+  {% for coach in matches_list %}  
+   <div class="col-md-4">
+        <aside class="panel-body">
+          <header>    
+    <!-- here’s the avatar -->
+        <a href="/profile/{{coach.username_id}}"> <!-- http://profile of person -->
+        <img src="{{coach.photo.url}}" width="125" height="125">
+        </a>
 
-    <!-- the username ADD A + LAST NAME!!!!!!-->
-    <h3>{{match.school}}</h3>
-    <h4>{{match.head_coach}}</h4>
-    <h4>{{match.league}}</h4>
-  </header>
+    <!-- the username ADD A + LAST NAME!!!!!!-->
+    <h3>{{coach.school}}</h3>
+    
+    <!-- and role or location -->
+    <h4>{{coach.head_coach}}</h4>
+    
+  </header>
+  
+  <!-- bit of a bio; who are you? -->
+  <div class="profile-bio">
+    <p> {{coach.league}} </p>
+  </div>
+  </aside>
+  </div>
+  {% endfor %}
 
-  </aside>
-  </div>
-  {% endfor %}
-
-  </div>
+  </div>
 </div>
-
   {% endblock %} 
   
 
