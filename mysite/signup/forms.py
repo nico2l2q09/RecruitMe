@@ -27,10 +27,10 @@ class CoachSignup(forms.ModelForm):
 	"""
 	
 class PlayerSignup(forms.ModelForm):
-	POSITION_CHOICES = (('GK', 'Goalkeeper'),
-						('MF', 'Midfield'),
-						('FW', 'Forward'),
-						('DF', 'Defense'))
+	POSITION_CHOICES = (('Goalkeeper', 'Goalkeeper'),
+						('Midfield', 'Midfield'),
+						('Forward', 'Forward'),
+						('Defense', 'Defense'))
 	name = forms.CharField(label='Full Name', max_length=75)
 	city = forms.CharField(label='City', max_length=50)
 	club = forms.CharField(label='Club Team', max_length=50)
@@ -61,13 +61,15 @@ class position(forms.Form):
 						('Midfield', 'Midfield'),
 						('Forward', 'Forward'),
 						('Defense', 'Defense'))
-	position = forms.ChoiceField(label='', choices=POSITION_CHOICES)
+	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
+	gpa = forms.DecimalField(label='Minimum GPA', max_digits=3, decimal_places=2, required=False)
+
 
 
 class UserForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name','username', 'email')
+		fields = ('username', 'email')
 
 class UpdatePlayerProfile(forms.ModelForm):
 	name = forms.CharField(label='Full Name', max_length=100, required=False)

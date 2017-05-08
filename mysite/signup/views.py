@@ -96,6 +96,7 @@ def signupPlayer(request):
 			# process the data in form.cleaned_data as required
 			new1 = form1.save()
 			new = form.save(commit=False)
+			#new.name = request.POST["first_name"] + " " + request.POST["last_name"]
 			new.username = new1
 			new.save()
 			
@@ -209,6 +210,12 @@ def explore(request):
 					a_list = Player.objects.all()
 				else:
 					a_list = Player.objects.filter(position=request.POST["position"])
+
+				if request.POST["gpa"]:
+					var = request.POST["gpa"]
+					print var
+					a_list = a_list.filter(GPA__gt=var)
+
 				form = position(request.POST)
 				context = {'user_list': a_list, 'form': form}
 				return render(request, 'explorePlayer.html', context)
