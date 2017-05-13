@@ -5,4 +5,5 @@ Pillow==4.1.1
 psycopg2==2.7.1
 py2app==0.7.3
 gunicorn==19.7.1
+dj-database-url==0.4.2
 
