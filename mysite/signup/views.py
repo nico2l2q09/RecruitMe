@@ -44,14 +44,14 @@ def updateProfile(request):
 			form = UpdatePlayerProfile(request.POST, request.FILES, instance=player)
 			if form.is_valid():
 				form.save()
-			return HttpResponseRedirect('http://localhost:8000/profile/')
+			return HttpResponseRedirect('/profile/')
 		else:
 			coach = Coach.objects.get(username=request.user)
 			form = UpdateCoachProfile(request.POST, request.FILES, instance=coach)
 			print coach.photo.url
 			if form.is_valid():
 				form.save()
-			return HttpResponseRedirect('http://localhost:8000/profile/')
+			return HttpResponseRedirect('/profile/')
 		
 	else:
 		if Player.objects.filter(username=request.user):
@@ -103,7 +103,7 @@ def signupPlayer(request):
 			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 			login(request, user)
 			# redirect to a new URL:
-			return HttpResponseRedirect('http://localhost:8000/profile/')
+			return HttpResponseRedirect('/profile/')
 		# if a GET (or any other method) we'll create a blank form
 	else: 
 		form = PlayerSignup()
@@ -128,7 +128,7 @@ def signupCoach(request):
 			user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 			login(request, user)
 			# redirect to a new URL:
-			return HttpResponseRedirect('http://localhost:8000/profile/')
+			return HttpResponseRedirect('/profile/')
 		# if a GET (or any other method) we'll create a blank form
 	else: 
 		form = CoachSignup()
@@ -323,10 +323,10 @@ def matches(request):
 
 def makeMatch(request, username):
 	if Matches.objects.filter(interestee=username).filter(interested=request.user):
-		return HttpResponseRedirect('http://localhost:8000/profile/' + username)
+		return HttpResponseRedirect('/profile/' + username)
 	else: 
 		match = Matches()
 		match.interested =request.user
 		match.interestee = User.objects.get(id=username)
 		match.save()
-		return HttpResponseRedirect('http://localhost:8000/profile/' + username)
+		return HttpResponseRedirect('/profile/' + username)
