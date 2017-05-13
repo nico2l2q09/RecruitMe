@@ -1,1 +1,1 @@
-web: gunicorn mysite.wsgi 
+web: gunicorn --pythonpath RecruitMe/mysite mysite.wsgi 
