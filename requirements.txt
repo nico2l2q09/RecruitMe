@@ -1,8 +1,0 @@
-Django==1.11
-django-bootstrap3==8.2.2
-django-crispy-forms==1.6.1
-Pillow==4.1.1
-psycopg2==2.7.1
-py2app==0.7.3
-gunicorn==19.7.1
-

@@ -1,1 +1,0 @@
-web: gunicorn RecruitMe.wsgi --pythonpath ../mysite --log-file -
