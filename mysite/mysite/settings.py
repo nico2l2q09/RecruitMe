@@ -25,8 +25,6 @@ SECRET_KEY = 'df!if!)=qvh670tzh9t%%z@jpda55i5r4+w3@=9g_v&$@l(885'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
@@ -139,7 +137,7 @@ DATABASES['default'] = dj_database_url.config()
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['rocky-escarpment-56716.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 DEBUG = False
 
