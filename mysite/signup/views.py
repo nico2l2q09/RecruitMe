@@ -20,8 +20,8 @@ from django.contrib.auth.decorators import login_required
 def index(request):
 	if request.method == 'POST':
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
-		login(request, user)
 		if user and user.is_authenticated:
+			login(request, user)
 			if Coach.objects.filter(username=request.user):
 				a_list = Coach.objects.filter(username=request.user)
 				context = {'user_list': a_list}
@@ -30,8 +30,8 @@ def index(request):
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
 				return render(request, 'player_nobuttons.html', context)
-		#else:
-
+		else:
+			return render(request, 'index.html')
 	return render(request, 'index.html')
 
 
