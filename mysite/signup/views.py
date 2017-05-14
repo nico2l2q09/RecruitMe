@@ -270,6 +270,11 @@ def explore(request):
 					print var1
 					a_list = a_list.filter(SAT__gt=var1)
 
+				if request.POST["act"]:
+					var2 = request.POST["act"]
+					print var2
+					a_list = a_list.filter(ACT__gt=var2)
+
 				form = position(request.POST)
 				context = {'user_list': a_list, 'form': form}
 				return render(request, 'explorePlayer.html', context)
