@@ -37,7 +37,7 @@ class PlayerSignup(forms.ModelForm):
 	state = forms.CharField(label='State', max_length=50)
 	school = forms.CharField(label='School', max_length=50)
 	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
-	phone = forms.CharField(label='Phone Number', max_length=40)
+	phone = forms.CharField(label='Club Coach Contact Number', max_length=40)
 	SAT = forms.IntegerField(label='SAT')
 	ACT = forms.IntegerField(label='ACT')
 	GPA = forms.DecimalField(label='GPA', max_digits=3, decimal_places=2)

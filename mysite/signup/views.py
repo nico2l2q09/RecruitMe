@@ -13,6 +13,8 @@ from .forms import UpdateCoachProfile
 from django.contrib.auth.models import User
 from signup.models import Coach, Player, Matches
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.decorators import login_required
+
 
 
 def index(request):
@@ -28,7 +30,10 @@ def index(request):
 				a_list = Player.objects.filter(username=request.user)
 				context = {'player_list': a_list}
 				return render(request, 'player_nobuttons.html', context)
+		#else:
+
 	return render(request, 'index.html')
+
 
 class PlayerUpdate(UpdateView):
     model = Player
@@ -36,6 +41,7 @@ class PlayerUpdate(UpdateView):
     template_name_suffix = '_update_form'
 
 
+@login_required(login_url='/')
 def updateProfile(request):
 	if request.method == 'POST':
 		if Player.objects.filter(username=request.user):
@@ -147,6 +153,7 @@ def signupCoach(request):
 # 			context = {'user_list': a_list}
 # 		return render(request, 'coach.html', context)
 
+@login_required(login_url='/')
 def profile(request, username=None):
 	print request.user
 	if username is not None:
@@ -202,6 +209,7 @@ def profile(request, username=None):
 
 	# 	print "xx"
 
+@login_required(login_url='/')
 def interestedInYou(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
@@ -242,6 +250,7 @@ def makeMatch(request, username):
 		match.save()
 		return 
 
+@login_required(login_url='/')
 def explore(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
@@ -330,6 +339,7 @@ def makeMatch(request, username):
 def noInterest(request):
 	return None
 
+@login_required(login_url='/')
 def matches(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
