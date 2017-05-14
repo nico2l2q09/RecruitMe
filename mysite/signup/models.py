@@ -4,6 +4,14 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+def upload_avatar_to(instance, filename):
+	import os
+	from django.utils.timezone import now
+    filename_base, filename_ext = os.path.splitext(filename)
+    return 'profiles/%s%s' % (
+        now().strftime("%Y%m%d%H%M%S"),
+        filename_ext.lower(),
+    )
 
 # Create your models here.
 class Player(models.Model):
@@ -27,8 +35,8 @@ class Player(models.Model):
 	birthDate = models.DateField()
 	video = models.CharField(max_length=150, default='none')
 	grad_year = models.CharField(max_length=10, default='none')
-	photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
-
+	#photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
+	photo = models.ImageField(_("Avatar"), upload_to=upload_avatar_to, blank=True)
 	#video = models.CharField(max_length=150)
 
 class Coach(models.Model):
