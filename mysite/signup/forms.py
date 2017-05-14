@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from crispy_forms.layout import Layout
 from crispy_forms.bootstrap import InlineField
 class CoachSignup(forms.ModelForm):
-	school = forms.CharField(label='School', max_length=100)
+	school = forms.CharField(label='School', max_length=200)
 	head_coach = forms.CharField(max_length=100, required=False)
 	assistant_coach = forms.CharField(max_length=100, required=False)
 	league = forms.CharField(max_length=100, required=False)
