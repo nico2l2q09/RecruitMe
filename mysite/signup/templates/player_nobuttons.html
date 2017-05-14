@@ -69,7 +69,9 @@
   <a href="/updateProfile/"><span class="glyphicon glyphicon-pencil"></span></a>
 
   <h3>{{player.name}}</h3>
+    {% if player.photo %}
   <img src="{{player.photo.url}}" alt="Goodies" width="225" height="300">
+  {% endif %}
   <h4>{{player.position}} at {{player.club}}</h4>
   <h4>{{player.city}}, {{player.state}}</h4>
 
