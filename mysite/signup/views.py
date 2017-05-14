@@ -265,6 +265,11 @@ def explore(request):
 					print var
 					a_list = a_list.filter(GPA__gt=var)
 
+				if request.POST["sat"]:
+					var1 = request.POST["sat"]
+					print var1
+					a_list = a_list.filter(SAT__gt=var1)
+
 				form = position(request.POST)
 				context = {'user_list': a_list, 'form': form}
 				return render(request, 'explorePlayer.html', context)

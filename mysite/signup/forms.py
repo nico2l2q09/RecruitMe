@@ -63,6 +63,7 @@ class position(forms.Form):
 						('Defense', 'Defense'))
 	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
 	gpa = forms.DecimalField(label='Minimum GPA', max_digits=3, decimal_places=2, required=False)
+	sat = forms.IntegerField(label='Minimum SAT score', required=False)
 
 
 
