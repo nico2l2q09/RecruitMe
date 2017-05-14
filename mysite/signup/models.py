@@ -23,7 +23,7 @@ class Player(models.Model):
 	school = models.CharField(max_length=75)
 	POSITION_CHOICES = (('Goalkeeper', 'Goalkeeper'),
 						('Midfield', 'Midfield'),
-						('Forward', 'Forward'),
+						('Forward', 'Forward'), 
 						('Defense', 'Defense'))
 	position = models.CharField(max_length=25, choices=POSITION_CHOICES)
 	club = models.CharField(max_length=25, default='none')
