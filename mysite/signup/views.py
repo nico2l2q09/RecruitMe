@@ -201,7 +201,47 @@ def profile(request, username=None):
 	# 	#if request.user.is_authenticated():
 
 	# 	print "xx"
-		
+
+def interestedInYou(request):
+	if request.user.is_authenticated():
+		if Coach.objects.filter(username=request.user):
+			a1_list = []
+			a_list = Matches.objects.filter(interestee=request.user)
+			for ID in a_list:
+				try:
+					obj = Matches.objects.get(interested=request.user, interestee=ID.interested)
+				except:
+					obj = None
+				if not obj:
+					a1_list.append(Player.objects.get(username=ID.interested))
+				print a1_list
+			context = {'matches_list': a1_list}
+			return render(request, 'interested.html', context)
+		else:
+			a1_list = []
+			a_list = Matches.objects.filter(interestee=request.user)
+			for ID in a_list:
+				print ID
+				try:
+					obj = Matches.objects.get(interested=request.user, interestee=ID.interested)
+				except:
+					obj = None
+				if not obj:
+					a1_list.append(Coach.objects.get(username=ID.interested))
+				print a1_list
+			context = {'matches_list': a1_list}
+			return render(request, 'interestedCoaches.html', context)
+				
+
+
+def makeMatch(request, username):
+	if matches.objects.filter(interestee=username).filter(interested=request.user):
+		return 
+	else: 
+		match = matches(interested=request.user, interestee=username)
+		match.save()
+		return 
+
 def explore(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
@@ -256,28 +296,27 @@ def explore(request):
 # 	context = {'player_list': a_list}
 # 	return render(request, 'explorePlayer.html', context)
 
-def matches(request):
+"""def matches(request):
 	if request.user.is_authenticated():
 		if Coach.objects.filter(username=request.user):
 			print "coach is logged on"
 			a1_list = []
 			a_list = Matches.objects.filter(interested=request.user)
 			for ID in a_list:
-				obj = matches.objects.filter(interestee=request.user).filter(interested=ID.interestee)
+				obj = Matches.objects.filter(interestee=request.user).filter(interested=ID.interestee)
 				if obj:
 					a1_list.append(Player.objects.get(obj.interested))
-				print a1_list
+				print obj.interested
 		else:
 			print "player is logged on"
 			a1_list = []
 			a_list = Matches.objects.filter(interested=request.user)
 			for ID in a_list:
-				obj = matches.objects.filter(interestee=request.user).filter(interested=ID.interestee)
+				obj = Matches.objects.filter(interestee=request.user).filter(interested=ID.interestee)
 				if obj:
 					a1_list.append(Coach.objects.get(obj.interested))
-				print a1_list
 		context = {'matches_list': a1_list}
-		return render(request, 'matchesPlayer.html', context)
+		return render(request, 'matchesPlayer.html', context)"""
 
 def makeMatch(request, username):
 	if matches.objects.filter(interestee=username).filter(interested=request.user):
