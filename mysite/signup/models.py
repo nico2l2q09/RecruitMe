@@ -35,7 +35,7 @@ class Player(models.Model):
 	video = models.CharField(max_length=150, default='none')
 	grad_year = models.CharField(max_length=10, default='none')
 	#photo = models.ImageField(upload_to='media/', default='media/athletics-logo.jpg', max_length=100000)
-	photo = models.ImageField(upload_to=upload_avatar_to, blank=True, default='1637819_640x640.jpg', required=False)
+	photo = models.ImageField(upload_to=upload_avatar_to, blank=True, default='1637819_640x640.jpg')
 	#video = models.CharField(max_length=150)
 
 class Coach(models.Model):
