@@ -53,7 +53,9 @@
           <header>    
     <!-- here’s the avatar -->
         <a href="/profile/{{coach.username_id}}"> <!-- http://profile of person -->
+          {% if coach.photo %}
         <img src="{{coach.photo.url}}" width="125" height="125">
+         {% endif %}
         </a>
 
     <!-- the username ADD A + LAST NAME!!!!!!-->
@@ -87,6 +89,7 @@
   <header>    
     <!-- here’s the avatar -->
     <a href="http://kanishkkunal.in"> <!-- http://profile of person -->
+
       <img src= "{{coach.photo.url}}" width="125" height="125">
     </a>
 

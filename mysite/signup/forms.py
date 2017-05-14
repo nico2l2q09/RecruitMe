@@ -9,11 +9,11 @@ from django.contrib.auth.models import User
 from crispy_forms.layout import Layout
 from crispy_forms.bootstrap import InlineField
 class CoachSignup(forms.ModelForm):
-	school = forms.CharField(label='School', max_length=25)
-	head_coach = forms.CharField(max_length=50, required=False)
-	assistant_coach = forms.CharField(max_length=50, required=False)
-	league = forms.CharField(max_length=25, required=False)
-	phone = forms.CharField(label='Phone Number', max_length=25, required=False)
+	school = forms.CharField(label='School', max_length=100)
+	head_coach = forms.CharField(max_length=100, required=False)
+	assistant_coach = forms.CharField(max_length=100, required=False)
+	league = forms.CharField(max_length=100, required=False)
+	phone = forms.CharField(label='Phone Number', max_length=50, required=False)
 	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")
 
@@ -32,17 +32,17 @@ class PlayerSignup(forms.ModelForm):
 						('Forward', 'Forward'),
 						('Defense', 'Defense'))
 	name = forms.CharField(label='Full Name', max_length=75)
-	city = forms.CharField(label='City', max_length=50)
-	club = forms.CharField(label='Club Team', max_length=50)
-	state = forms.CharField(label='State', max_length=50)
-	school = forms.CharField(label='School', max_length=50)
+	city = forms.CharField(label='City', max_length=100)
+	club = forms.CharField(label='Club Team', max_length=100)
+	state = forms.CharField(label='State', max_length=100)
+	school = forms.CharField(label='School', max_length=100)
 	position = forms.ChoiceField(label='Position', choices=POSITION_CHOICES)
-	phone = forms.CharField(label='Club Coach Contact Number', max_length=40)
+	phone = forms.CharField(label='Club Coach Contact Number', max_length=100)
 	SAT = forms.IntegerField(label='SAT')
 	ACT = forms.IntegerField(label='ACT')
 	GPA = forms.DecimalField(label='GPA', max_digits=3, decimal_places=2)
 	birthDate = forms.DateField(label='Birth Date', widget=SelectDateWidget(years=range(1985, datetime.date.today().year+10)))
-	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
+	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=300)
 	#achievements = forms.CharField(required=False, label='Achievements', max_length=500)
 	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
 

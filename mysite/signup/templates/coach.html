@@ -36,7 +36,9 @@
  {% for coach in user_list %}  
 <div class="container-fluid bg-1 text-center">
   <h3>{{coach.school}}</h3>
+  {% if coach.photo %}
   <img src="{{coach.photo.url}}" class="img-circle" alt="" width="350" height="350">
+  {% edif %}
   <h3>Head Coach: {{coach.head_coach}}</h4>
   <h4>Assistant Coach: {{coach.assistant_coach}}</h5>
   <h4>{{coach.league}}</h4>
