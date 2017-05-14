@@ -7,11 +7,10 @@ from django.contrib.auth.models import User
 def upload_avatar_to(instance, filename):
 	import os
 	from django.utils.timezone import now
-    filename_base, filename_ext = os.path.splitext(filename)
-    return 'profiles/%s%s' % (
-        now().strftime("%Y%m%d%H%M%S"),
-        filename_ext.lower(),
-    )
+	filename_base, filename_ext = os.path.splitext(filename)
+	return 'profiles/%s%s' % (
+		now().strftime("%Y%m%d%H%M%S"),
+		filename_ext.lower(),)
 
 # Create your models here.
 class Player(models.Model):
