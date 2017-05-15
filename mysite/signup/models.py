@@ -14,8 +14,6 @@ def upload_avatar_to(instance, filename):
 
 # Create your models here.
 class Player(models.Model):
-	#first_name = models.CharField(max_length=25, default='Kayla')
-	#last_name = models.CharField(max_length=25, default='Symanovich')
 	username = models.OneToOneField(User)
 	name = models.CharField(max_length=75, default='Ali Smith')
 	city = models.CharField(max_length=25)
@@ -48,17 +46,10 @@ class Coach(models.Model):
 	league = models.CharField(max_length=25, default='none')
 	photo = models.ImageField(upload_to='coaches/', default='coaches/duke-sports.jpg', max_length=100000)
 
-	#video = models.CharField(max_length=150)
-
-	#logo = models.ImageField(upload_to = 'logos/', null=True)
-
 class Matches(models.Model):
 	interested = models.ForeignKey(User, related_name='user_interested')
 	interestee = models.ForeignKey(User, related_name='user_interestee')
-	# coach_id = models.IntegerField()
-	# player_id = models.IntegerField()
-	# c_interest = models.IntegerField(default=5)
-	# p_interest = models.IntegerField(default=5)
+
 
 
 
