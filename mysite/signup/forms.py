@@ -14,7 +14,7 @@ class CoachSignup(forms.ModelForm):
 	assistant_coach = forms.CharField(max_length=100, required=False)
 	league = forms.CharField(max_length=100, required=False)
 	phone = forms.CharField(label='Phone Number', max_length=50, required=False)
-	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
+	photo = forms.ImageField(required=True, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")
 
 
@@ -44,7 +44,7 @@ class PlayerSignup(forms.ModelForm):
 	birthDate = forms.DateField(label='Birth Date', widget=SelectDateWidget(years=range(1985, datetime.date.today().year+10)))
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=300)
 	#achievements = forms.CharField(required=False, label='Achievements', max_length=500)
-	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
+	photo = forms.ImageField(required=True, label='Upload a Profile Photo')
 
 	#video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	class Meta:
@@ -87,7 +87,7 @@ class UpdatePlayerProfile(forms.ModelForm):
 	birthDate = forms.DateField(label='Birth Date', widget=SelectDateWidget(years=range(1985, datetime.date.today().year+10)))
 	video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	#achievements = forms.CharField(required=False, label='Achievements', max_length=500)
-	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
+	photo = forms.ImageField(required=True, label='Upload a Profile Photo')
 
 	#video = forms.CharField(required=False, label='Link To Highlight Video', max_length=150)
 	class Meta:
@@ -103,7 +103,7 @@ class UpdateCoachProfile(forms.ModelForm):
 	assistant_coach = forms.CharField(max_length=100, required=False)
 	league = forms.CharField(max_length=100, required=False)
 	phone = forms.CharField(label='Phone Number', max_length=100, required=False)
-	photo = forms.ImageField(required=False, label='Upload a Profile Photo')
+	photo = forms.ImageField(required=True, label='Upload a Profile Photo')
 	#logo = forms.ImageField(required=False, label="logo")
 
 
